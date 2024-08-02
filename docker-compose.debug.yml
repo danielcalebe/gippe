@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  gippe:
+    image: gippe
+    build:
+      context: .
+      dockerfile: ./Dockerfile

@@ -10,7 +10,7 @@ class PedidosServicos extends Model
 {
   use HasFactory;
 
-  protected $table = 'pedidos_servicos';
+  protected $table = 'pedido_servicos';
   protected $primaryKey = 'id';
   protected $fillable =[
     'idServicos',
