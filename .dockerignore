@@ -1,25 +1,53 @@
-**/.classpath
-**/.dockerignore
-**/.env
-**/.git
-**/.gitignore
-**/.project
-**/.settings
-**/.toolstarget
-**/.vs
-**/.vscode
-**/*.*proj.user
-**/*.dbmdl
-**/*.jfm
-**/bin
-**/charts
-**/docker-compose*
-**/compose*
-**/Dockerfile*
-**/node_modules
-**/npm-debug.log
-**/obj
-**/secrets.dev.yaml
-**/values.dev.yaml
+# Ignorar arquivos e diretórios de configuração do Docker
+Dockerfile
+.dockerignore
+
+# Ignorar arquivos de configuração do Git
+.git
+.gitignore
+
+# Ignorar arquivos e diretórios específicos de IDEs e ferramentas
+.vscode
+.vs
+*.suo
+*.user
+*.userosscache
+*.suo
+*.ncb
+
+# Ignorar arquivos de configuração e projetos de IDE
+.project
+.settings
+
+# Ignorar arquivos e diretórios de cache, logs e builds
+node_modules
+npm-debug.log
+*.log
+*.tmp
+*.swp
+
+# Ignorar arquivos sensíveis e específicos de desenvolvimento
+.env
+secrets.dev.yaml
+values.dev.yaml
+
+# Ignorar arquivos e diretórios não necessários no ambiente de produção
+bin
+charts
+obj
+*.dbmdl
+*.jfm
+
+# Ignorar arquivos de documentação não necessários
 LICENSE
 README.md
+
+# Ignorar diretórios de build e temporários
+tmp
+build
+dist
+
+# Ignorar dependências e arquivos de construção específicos de sistemas
+*.tgz
+*.tar.gz
+*.zip
