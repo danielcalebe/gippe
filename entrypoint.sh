@@ -1,10 +1,10 @@
 #!/bin/bash
 
-# Execute Laravel migrations
+# Run migrations
 php artisan migrate --force
 
-# Seed the database if needed
+# Seed the database (optional)
 php artisan db:seed --force
 
-# Start PHP-FPM server
-exec php-fpm
+# Execute the command passed to the entrypoint
+exec "$@"
