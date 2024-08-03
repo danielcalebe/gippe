@@ -1,10 +1,10 @@
-# Use an official PHP runtime as a parent image
-FROM php:8.1-fpm
+# Use uma imagem base do PHP que suporta PHP 8.2
+FROM php:8.2-fpm
 
-# Set working directory
+# Defina o diretório de trabalho
 WORKDIR /var/www
 
-# Install system dependencies
+# Instale as dependências do sistema
 RUN apt-get update && apt-get install -y \
     libpng-dev \
     libjpeg-dev \
@@ -17,7 +17,7 @@ RUN apt-get update && apt-get install -y \
     git \
     && rm -rf /var/lib/apt/lists/*
 
-# Install PHP extensions
+# Instale as extensões do PHP
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install gd \
     && docker-php-ext-install intl \
@@ -25,28 +25,28 @@ RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install bcmath \
     && docker-php-ext-install gmp
 
-# Install Composer
+# Instale o Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Create a non-root user
+# Crie um usuário não-root
 RUN useradd -ms /bin/bash appuser
 USER appuser
 
-# Copy application code
+# Copie o código da aplicação
 COPY --chown=appuser:appuser . /var/www
 
-# Install Laravel dependencies
+# Instale as dependências do Laravel
 RUN composer install --no-dev --optimize-autoloader
 
-# Copy the custom entrypoint script
+# Copie o script customizado de inicialização
 COPY --chown=appuser:appuser entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh
 
-# Expose port 9000
+# Exponha a porta 9000
 EXPOSE 9000
 
-# Use the custom entrypoint script
+# Use o script customizado de inicialização
 ENTRYPOINT ["entrypoint.sh"]
 
-# Start PHP-FPM server
+# Inicie o servidor PHP-FPM
 CMD ["php-fpm"]
