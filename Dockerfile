@@ -28,14 +28,18 @@ RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Copy existing application directory contents
-COPY . /var/www
+# Create a non-root user
+RUN useradd -ms /bin/bash appuser
+USER appuser
+
+# Copy application code
+COPY --chown=appuser:appuser . /var/www
 
 # Install Laravel dependencies
-RUN composer install
+RUN composer install --no-dev --optimize-autoloader
 
 # Copy the custom entrypoint script
-COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+COPY --chown=appuser:appuser entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh
 
 # Expose port 9000
