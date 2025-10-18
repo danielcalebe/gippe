@@ -28,9 +28,11 @@ RUN chmod -R 775 storage bootstrap/cache
 RUN php artisan migrate --force || true
 
 # Limpa cache de configuração e rota para produção
-RUN php artisan config:cache
-RUN php artisan route:cache
-RUN php artisan view:cache
+# Cache de produção só se o .env existir
+RUN if [ -f .env ]; then php artisan config:cache; fi
+RUN if [ -f .env ]; then php artisan route:cache; fi
+RUN if [ -f .env ]; then php artisan view:cache; fi
+
 
 # Expõe a porta 8000
 EXPOSE 8000
