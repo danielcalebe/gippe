@@ -1,52 +1,31 @@
-# Use uma imagem base do PHP que suporta PHP 8.2
-FROM php:8.2-fpm
+# Usa imagem oficial do PHP com Composer
+FROM php:8.2-cli
 
-# Defina o diretório de trabalho
-WORKDIR /var/www
-
-# Instale as dependências do sistema
+# Instala dependências do sistema e extensões do Laravel
 RUN apt-get update && apt-get install -y \
-    libpng-dev \
-    libjpeg-dev \
-    libfreetype6-dev \
-    libzip-dev \
-    libicu-dev \
-    libgmp-dev \
-    zlib1g-dev \
-    unzip \
-    git \
-    && rm -rf /var/lib/apt/lists/*
+    unzip zip git curl libpng-dev libjpeg-dev libfreetype6-dev && \
+    docker-php-ext-install pdo pdo_mysql gd
 
-# Instale as extensões do PHP
-RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install gd \
-    && docker-php-ext-install intl \
-    && docker-php-ext-install zip \
-    && docker-php-ext-install bcmath \
-    && docker-php-ext-install gmp
+# Instala o Composer
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
-# Instale o Composer
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+# Define o diretório de trabalho
+WORKDIR /var/www/html
 
-# Crie um usuário não-root
-RUN useradd -ms /bin/bash appuser
-USER appuser
+# Copia os arquivos do projeto
+COPY . .
 
-# Copie o código da aplicação
-COPY --chown=appuser:appuser . /var/www
-
-# Instale as dependências do Laravel
+# Instala as dependências do Laravel
 RUN composer install --no-dev --optimize-autoloader
 
-# Copie o script customizado de inicialização
-COPY --chown=appuser:appuser entrypoint.sh /usr/local/bin/entrypoint.sh
-RUN chmod +x /usr/local/bin/entrypoint.sh
+# Gera a APP_KEY automaticamente se não existir
+RUN php artisan key:generate --force || true
 
-# Exponha a porta 9000
-EXPOSE 9000
+# Ajusta permissões
+RUN chmod -R 775 storage bootstrap/cache
 
-# Use o script customizado de inicialização
-ENTRYPOINT ["entrypoint.sh"]
+# Expõe a porta 8000
+EXPOSE 8000
 
-# Inicie o servidor PHP-FPM
-CMD ["php-fpm"]
+# Inicia o servidor Laravel
+CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]
