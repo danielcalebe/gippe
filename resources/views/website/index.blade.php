@@ -10,7 +10,7 @@
   <title>Buffet Divino Sabor</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
-  <link rel="stylesheet" href="{{ asset('css/lightbox.css') }}">
+  <link rel="stylesheet" href="{{ asset('/css/lightbox.css') }}">
 
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css">
