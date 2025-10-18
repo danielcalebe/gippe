@@ -6,18 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastre-se</title>
     <link rel="stylesheet" href="https://unpkg.com/bootstrap@5.3.3/dist/css/bootstrap.min.css">
-    <link href="{{ asset('assets/css/style__cadastro.css') }}" rel="stylesheet">
+    <link href="{{ asset('/assets/css/style__cadastro.css') }}" rel="stylesheet">
     
-  <link href="{{asset('assets/css/style.css')}}" rel="stylesheet">
-  <script src="{{ asset('assets/vendor/purecounter/purecounter_vanilla.js') }}"></script>
-<script src="{{ asset('assets/vendor/aos/aos.js') }}"></script>
-<script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-<script src="{{ asset('assets/vendor/glightbox/js/glightbox.min.js') }}"></script>
-<script src="{{ asset('assets/vendor/isotope-layout/isotope.pkgd.min.js') }}"></script>
-<script src="{{ asset('assets/vendor/swiper/swiper-bundle.min.js') }}"></script>
-<script src="{{ asset('assets/vendor/waypoints/noframework.waypoints.js') }}"></script>
+  <link href="{{asset('/assets/css/style.css')}}" rel="stylesheet">
+  <script src="{{ asset('/assets/vendor/purecounter/purecounter_vanilla.js') }}"></script>
+<script src="{{ asset('/assets/vendor/aos/aos.js') }}"></script>
+<script src="{{ asset('/assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+<script src="{{ asset('/assets/vendor/glightbox/js/glightbox.min.js') }}"></script>
+<script src="{{ asset('/assets/vendor/isotope-layout/isotope.pkgd.min.js') }}"></script>
+<script src="{{ asset('/assets/vendor/swiper/swiper-bundle.min.js') }}"></script>
+<script src="{{ asset('/assets/vendor/waypoints/noframework.waypoints.js') }}"></script>
 
-<script src="{{ asset('assets/js/mainn.js') }}"></script>
+<script src="{{ asset('/assets/js/mainn.js') }}"></script>
     <style>
         .alert {
             padding: 0.75rem 1.25rem;
